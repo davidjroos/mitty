@@ -5,6 +5,7 @@ require 'mitty/version'
 require 'mitty/configuration'
 require 'mitty/darkroom'
 require 'mitty/publisher'
+require 'mitty/genblog'
 require 'mitty/cli'
 
 module Mitty
@@ -12,7 +13,7 @@ module Mitty
   class << self
     attr_writer :configuration
   end
-  
+
   def self.configuration
     @configuration ||= Configuration.new
   end
