@@ -4,10 +4,10 @@ module Mitty
   class Configuration
     # AWS Config
     attr_accessor :aws_access_key_id, :aws_secret_access_key, :aws_s3_bucket, :aws_region,
-                  :aws_default_acl, :aws_original_copy_acl
+                  :aws_default_acl, :aws_original_copy_acl, :object_key_prefix
 
     # Image Config
-    attr_accessor :thumbnail_image_size, :small_image_size, :medium_image_size, 
+    attr_accessor :thumbnail_image_size, :small_image_size, :medium_image_size,
                   :large_image_size, :normal_quality_value, :low_quality_value,
                   :generate_low_quality, :strip_color_profiles
 
@@ -18,6 +18,7 @@ module Mitty
       @aws_region = config_from_file['aws_region'] || 'us-east-1'
       @aws_default_acl = config_from_file['aws_default_acl'] || 'private'
       @aws_original_copy_acl = config_from_file['aws_original_copy_acl'] || 'private'
+      @object_key_prefix  = config_from_file['object_key_prefix'] || ''
 
       @thumbnail_image_size = config_from_file['thumbnail_image_size'] || 125
       @small_image_size = config_from_file['small_image_size'] || 250

@@ -1,4 +1,5 @@
 require 'aws-sdk'
+require 'mitty/darkroom'
 
 module Mitty
   class Publisher
@@ -14,6 +15,7 @@ module Mitty
         access_key_id: Mitty.configuration.aws_access_key_id,
         secret_access_key: Mitty.configuration.aws_secret_access_key
       )
+
     end
 
     # Public: Uploads a single image to an Amazon Web Services S3 bucket.  The AWS S3 object's key
@@ -29,10 +31,11 @@ module Mitty
     # Returns nothing.
     def upload_image(
       path: ,
-      acl: Mitty.configuration.aws_default_acl, 
+      acl: Mitty.configuration.aws_default_acl,
       bucket: Mitty.configuration.aws_s3_bucket,
       key_prefix: nil
     )
+
       image = File.read(path)
       key = key_prefix ? "#{key_prefix}/#{File.basename(path)}" : path
 
@@ -42,10 +45,12 @@ module Mitty
         bucket: bucket,
         key: key
       )
+
+
     end
 
     # Public: Uploads a directory of images to an Amazon Web Services S3 bucket.  The AWS S3 objects' keys
-    # default to their paths on the file system.  An optional :key_prefix can be provided to replace the 
+    # default to their paths on the file system.  An optional :key_prefix can be provided to replace the
     # path in each object's key.
     #
     # options - A Hash of options used for uploading the images
@@ -56,11 +61,12 @@ module Mitty
     #
     # Returns nothing.
     def upload_image_directory(
-      path: , 
-      acl: Mitty.configuration.aws_default_acl, 
+      path: ,
+      acl: Mitty.configuration.aws_default_acl,
       bucket: Mitty.configuration.aws_s3_bucket,
       key_prefix: nil
     )
+
       Dir.glob("#{path}/*.{jpg,jpeg}") do |image_path|
         image = File.read(image_path)
         key = key_prefix ? "#{key_prefix}/#{File.basename(image_path)}" : image_path
@@ -71,6 +77,7 @@ module Mitty
           bucket: bucket,
           key: key
         )
+
       end
     end
   end

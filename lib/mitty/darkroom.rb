@@ -61,7 +61,7 @@ module Mitty
     end
 
     # Public: Creates copies of all jpg images in the @input_path directory.
-    # Copies the images to a folder named 'originals' located within a folder named 
+    # Copies the images to a folder named 'originals' located within a folder named
     # for today's date which exists within the @output_path directory.
     #
     # Returns a String denoting the path to which the images were copied
@@ -87,12 +87,12 @@ module Mitty
       resized_images_output_path = create_output_directory
 
       Dir.glob("#{input_path}/*.{jpg,jpeg}") do |jpg_file|
-        image_output_path = image_output_path(jpg_file, resized_images_output_path, "_#{size}")
 
+        image_output_path = image_output_path(jpg_file, resized_images_output_path, Mitty.configuration.send("#{size}_image_size"))
         image = Magick::Image.read(jpg_file).first
-        image.resize_to_fit!(Mitty.configuration.send("#{size}_image_size"))
+        image.change_geometry("#{Mitty.configuration.send("#{size}_image_size")}") {|cols, rows, img| img.resize!(cols, rows)}
         image.strip! if Mitty.configuration.strip_color_profiles
-        
+
         image.write(image_output_path) { self.quality = Mitty.configuration.normal_quality_value }
 
         if Mitty.configuration.generate_low_quality
@@ -111,7 +111,9 @@ module Mitty
     #
     # Returns a String denoting the name of the directory
     def output_directory_name
-      DateTime.now.to_date.to_s
+      #DateTime.now.to_date.to_s
+      #'david'
+      "#{input_path}".split("/").last
     end
 
     # Public: The name of the directory that will be created within the @output_path directory.
@@ -147,7 +149,7 @@ module Mitty
       image_file_ext = File.extname(input_file_path)
       image_file_base = File.basename(input_file_path, image_file_ext)
 
-      "#{output_path_root}/#{image_file_base}#{file_suffix}#{image_file_ext}"
+      "#{output_path_root}/#{image_file_base}_#{file_suffix}#{image_file_ext}"
     end
   end
 end
