@@ -26,6 +26,7 @@ module Mitty
       blogdraft.puts "description: ''\n"
       blogdraft.puts "post_image:\n"
       blogdraft.puts "bw: false\n"
+      blogdraft.puts "draft: true\n"
       blogdraft.puts "---\n\n"
       blogdraft.close
       #end draft blog output
