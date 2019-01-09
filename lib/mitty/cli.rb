@@ -7,6 +7,11 @@ module Mitty
   class CLI < Thor
     class_option :verbose, type: :boolean, aliases: '-v'
 
+    desc 'version', 'Shows the version'
+    def version
+       puts Mitty::VERSION
+    end
+
     desc 'resize PATH', 'Resizes a directory of images to a given size'
     option :output, desc: 'Path of the output directory', aliases: '-o'
     option :config, desc: 'Path to an optional config file', aliases: '-c'
@@ -65,6 +70,8 @@ module Mitty
     option :aws_bucket, desc: 'AWS bucket identifier', aliases: '-b'
     option :config, desc: 'Path to an optional config file', aliases: '-c'
     def blog(path = '.')
+      #show version for sanity checking
+      verbose_log(Mitty::VERSION)
       apply_custom_config
       apply_aws_credential_overrides
 
