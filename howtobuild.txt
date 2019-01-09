@@ -1,5 +1,14 @@
-sudo gem uninstall mitty
-several times until its all gone
+git pull
+
+[make changes]
 
 gem build mitty.gemspec
+
+sudo gem uninstall mitty
+(twice usually)
+
 sudo gem install ./mitty-x.x.x.gem
+
+git commit -a -m "witty comment"
+
+git push
