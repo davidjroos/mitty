@@ -1,0 +1,5 @@
+sudo gem uninstall mitty
+several times until its all gone
+
+gem build mitty.gemspec
+sudo gem install ./mitty-x.x.x.gem
