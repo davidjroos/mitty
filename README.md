@@ -1,3 +1,10 @@
+# Why the fork
+This is a collection of modifications of the mitty code to suit my needs and should be considered dangerous to use by anyone not me.
+
+Original Readme.md from Mitty below
+
+-----
+
 # Mitty
 [![Build Status](https://travis-ci.org/tcdowney/mitty.svg)](https://travis-ci.org/tcdowney/mitty)
 
